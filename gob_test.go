@@ -1,4 +1,4 @@
-package redis_test
+package coreredis_test
 
 import (
 	"testing"

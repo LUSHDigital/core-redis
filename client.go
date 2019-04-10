@@ -1,4 +1,4 @@
-package redis
+package coreredis
 
 import (
 	"github.com/go-redis/redis"
