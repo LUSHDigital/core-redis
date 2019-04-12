@@ -1,6 +1,8 @@
 package coreredis
 
 import (
+	"fmt"
+
 	"github.com/go-redis/redis"
 )
 
@@ -14,7 +16,11 @@ func (c *Client) Check() ([]string, bool) {
 	status := c.Ping()
 	res, err := status.Result()
 	if err != nil {
-		return []string{res}, false
+		msgs := []string{"redis did not respond to PING"}
+		if res != "" {
+			msgs = append(msgs, res)
+		}
+		return msgs, false
 	}
-	return []string{res}, true
+	return []string{fmt.Sprintf("redis responded to PING with: %s", res)}, true
 }
