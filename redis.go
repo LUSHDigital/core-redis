@@ -29,6 +29,9 @@ func (e ConfigError) Error() string {
 func URLFromEnv() string {
 	url := os.Getenv("REDIS_URL")
 	if url == "" {
+		url = os.Getenv("REDIS_HOST")
+	}
+	if url == "" {
 		url = DefaultURL
 	}
 	return url
