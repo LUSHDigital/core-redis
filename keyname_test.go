@@ -7,7 +7,7 @@ import (
 	"github.com/LUSHDigital/core-redis"
 )
 
-func TestKeyspace(t *testing.T) {
+func TestKeyName(t *testing.T) {
 	type args struct {
 		prefix string
 		args   []coreredis.Arg
@@ -50,19 +50,19 @@ func TestKeyspace(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := coreredis.Keyspace(tt.args.prefix, tt.args.args); got != tt.want {
-				t.Errorf("Keyspace() = %v, want %v", got, tt.want)
+			if got := coreredis.KeyName(tt.args.prefix, tt.args.args); got != tt.want {
+				t.Errorf("KeyName() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func ExampleKeyspace() {
+func ExampleKeyName() {
 	args := []coreredis.Arg{
 		{Name: "hello", Value: "world"},
 		{Name: "starwisp", Value: "probe"},
 	}
-	space := coreredis.Keyspace("testcase", args)
+	space := coreredis.KeyName("testcase", args)
 	fmt.Println(space)
 	// Output: testcase|hello:world|starwisp:probe
 }
