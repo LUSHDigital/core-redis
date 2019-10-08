@@ -1,6 +1,7 @@
 package coreredis_test
 
 import (
+	"crypto/tls"
 	"os"
 	"reflect"
 	"testing"
@@ -60,6 +61,17 @@ func TestParse(t *testing.T) {
 				Addr:     "example.com:6379",
 				Password: "",
 				DB:       1,
+			},
+		},
+		{
+			url: "rediss://passwd@example.com:6379/6/foobar",
+			expected: &redis.Options{
+				Addr:     "example.com:6379",
+				Password: "passwd",
+				DB:       6,
+				TLSConfig: &tls.Config{
+					InsecureSkipVerify: true,
+				},
 			},
 		},
 	}

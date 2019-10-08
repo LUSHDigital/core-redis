@@ -1,6 +1,7 @@
 package coreredis
 
 import (
+	"crypto/tls"
 	"fmt"
 	"log"
 	"net/url"
@@ -64,6 +65,12 @@ func Parse(s string) (*redis.Options, error) {
 		Addr:     rurl.Host,
 		Password: pass,
 		DB:       db,
+	}
+	switch rurl.Scheme {
+	case "rediss":
+		opt.TLSConfig = &tls.Config{
+			InsecureSkipVerify: true,
+		}
 	}
 	return opt, nil
 }
